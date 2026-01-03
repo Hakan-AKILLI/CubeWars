@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject enemyPrefab; // Düþman prefabý (Madde 1)
-
-    // Madde 8: Arrays (Doðma noktalarýný tutan dizi)
+    public GameObject enemyPrefab; // Düþman prefabý 
     public Transform[] spawnPoints;
 
     public float spawnInterval = 2f;
@@ -12,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Basit zamanlayýcý
+
         timer += Time.deltaTime;
 
         if (timer >= spawnInterval)
@@ -28,7 +26,7 @@ public class GameManager : MonoBehaviour
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomIndex];
 
-        // Madde 4: Instantiate (Düþmaný sahnede oluþtur)
+        // Instantiate Düþmaný sahnede oluþtrr
         Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 }

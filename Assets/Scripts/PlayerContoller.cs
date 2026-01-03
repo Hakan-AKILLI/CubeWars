@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Ayarlar")]
     public float mouseSensitivity = 2f;
 
-    // ARTIK PlayerBody YOK, onun yerine Kamerayý istiyoruz
+
     public Transform playerCamera;
 
     [Header("Ateþ Etme")]
@@ -30,25 +30,24 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        // --- Mouse Look ---
+        // --- Mouse ayarlarý ---
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // 1. KAFANIN (KAMERANIN) BAKMASI (Yukarý/Aþaðý)
+        //  KAFANIN (KAMERANIN) BAKMASI 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Eðer playerCamera atandýysa onu döndür
+
         if (playerCamera != null)
         {
             playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         }
 
-        // 2. VÜCUDUN (BU OBJENÝN) DÖNMESÝ (Saða/Sola)
-        // Script artýk Player'da olduðu için 'transform' kendisi demektir.
+        // VÜCUDUN (BU OBJENÝN) DÖNMESÝ (Saða/Sola)
         transform.Rotate(Vector3.up * mouseX);
 
-        // --- Ateþ Etme ---
+        //  Ateþ Etme
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -59,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if (gunAnimator != null) gunAnimator.SetTrigger("Shoot");
 
-        // Iþýn artýk kameranýn olduðu yerden çýkmalý
+
         RaycastHit hit;
         if (playerCamera != null && Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, range))
         {
@@ -71,8 +70,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // --- ÇARPIÞMA ---
-    // Script artýk Rigidbody ile ayný objede olduðu için bu çalýþacak!
+    //ÇARPIÞMA
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isDead)
